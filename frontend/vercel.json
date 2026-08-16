@@ -3,7 +3,6 @@
   "framework": "tanstack-start",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "outputDirectory": "dist",
   "build": {
     "env": {
       "NITRO_PRESET": "vercel"

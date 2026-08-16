@@ -13,7 +13,7 @@ Use **one** of these setups (not both):
 | Root Directory | `frontend` |
 | Framework Preset | TanStack Start |
 | Build Command | `npm run build` |
-| Output Directory | `dist` |
+| Output Directory | *(leave empty — auto-detected at `.vercel/output`)* |
 | Install Command | `npm install` |
 | Node.js Version | 20.x |
 
@@ -50,8 +50,11 @@ This error means Vercel has **no route handler** for the request — not an app 
 
 ### Checklist
 
-1. **Output Directory must be `dist`, never `dist/client`**
-   - SSR needs `config.json` + `functions/__server.func/` (both live in `dist/`, not `dist/client/`).
+1. **Leave Output Directory empty** — do NOT set it to `dist`
+   - This is a TanStack Start SSR app. The Nitro `vercel` preset emits the **Build Output API v3**
+     (`config.json` + `functions/__server.func/` + `static/`) to **`.vercel/output/`**, which Vercel
+     auto-detects. Pointing Output Directory at `dist` makes Vercel serve it as a static folder with no
+     root `index.html`, so every route returns `404 NOT_FOUND`.
 
 2. **Remove Production Overrides**
    - Settings → Build & Development → yellow “Production Overrides” warning
@@ -59,7 +62,7 @@ This error means Vercel has **no route handler** for the request — not an app 
 
 3. **Build logs must end with**
    ```
-   Vercel output verified: dist/client + dist/functions/__server.func + config.json
+   Vercel output verified: .vercel/output/static + functions/__server.func + config.json
    ```
 
 4. **Open your Vercel URL**, not the Render API URL.

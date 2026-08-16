@@ -17,9 +17,13 @@ export default defineConfig({
       },
     },
     output: {
-      // Single output dir: client assets + serverless function + config.json (Vercel Build Output API v3).
-      dir: "dist",
-      serverDir: "dist/functions/__server.func",
+      // @lovable.dev config hardcodes Nitro output to dist/. Vercel only auto-detects the
+      // Build Output API v3 at .vercel/output/ — writing to dist/ made Vercel serve it as a
+      // static folder (no root index.html) → 404 NOT_FOUND on every route. Point it at the
+      // v3 layout: config.json at root, static/ for assets, functions/__server.func/ for SSR.
+      dir: ".vercel/output",
+      serverDir: ".vercel/output/functions/__server.func",
+      publicDir: ".vercel/output/static",
     },
   },
   tanstackStart: {

@@ -3,7 +3,7 @@
   "framework": "tanstack-start",
   "installCommand": "npm install --prefix frontend",
   "buildCommand": "npm run build --prefix frontend",
-  "outputDirectory": "frontend/dist",
+  "outputDirectory": "frontend/.vercel/output",
   "build": {
     "env": {
       "NITRO_PRESET": "vercel"
